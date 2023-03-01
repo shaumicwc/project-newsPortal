@@ -12,10 +12,10 @@ const showCategories = data => {
         // loadAllNews(singleCategory.category_id);
         let listContainer = document.createElement('div');
         listContainer.classList.add('btn');
-        listContainer.addEventListener("mouseenter", function () {
+        listContainer.addEventListener("mouseenter", function() {
             listContainer.style.color = "purple";
         });
-        listContainer.addEventListener('mouseleave', function () {
+        listContainer.addEventListener('mouseleave', function(){
             listContainer.style.color = "black";
         });
         listContainer.innerHTML = `<a onclick="loadAllNews('${singleCategory.category_id}', '${singleCategory.category_name}')" class="nav-link" href="#">${singleCategory.category_name}</a> `
@@ -24,20 +24,20 @@ const showCategories = data => {
     });
     // console.log(newsArray)
 }
-const loadAllNews = async (category_id, category_name) => {
+const loadAllNews = async (category_id, category_name) =>{
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
     const data = await res.json();
     fetchData = data.data;
     showAllNews(data.data, category_name);
 }
-const showAllNews = async (data, category_name) => {
+const showAllNews = async (data, category_name) =>{
     document.getElementById('news-count').innerText = data.length;
     document.getElementById('category-name').innerText = category_name;
     const allNewsContainer = document.getElementById('all-news');
     allNewsContainer.innerHTML = '';
-    data.forEach(singleNews => {
-        const { _id, image_url, title, details, author, total_view, rating } = singleNews;
+    data.forEach(singleNews =>{
+        const {_id, image_url, title, details, author, total_view,rating } = singleNews;
         const card = document.createElement('div');
         card.classList.add('card', 'mb-3');
         card.innerHTML = `<div class="row g-0">
@@ -53,10 +53,11 @@ const showAllNews = async (data, category_name) => {
             </div>
             <div class="card-footer border-0 bg-body d-flex justify-content-between">
             <div class="d-flex gap-2">
-            <img src=${author.img
-            } class="img-fluid rounded-circle" alt="..." height="40" width="40"/>
+            <img src=${
+            author.img
+        } class="img-fluid rounded-circle" alt="..." height="40" width="40"/>
         <div>
-        <p class="m-0 p-0">${author.name ? author.name : "Not available"}</p>
+        <p class="m-0 p-0">${author.name ? author.name : "Not available" }</p>
         <p class="m-0 p-0">${author.published_date}</p>
           </div>
           
@@ -83,11 +84,11 @@ const showAllNews = async (data, category_name) => {
           </div>
           </div>
           </div>`;
-        allNewsContainer.appendChild(card);
+          allNewsContainer.appendChild(card);
         // console.log(singleNews)
     })
 }
-const loadNewsDetail = async (newsId) => {
+const loadNewsDetail = async (newsId) =>{
     const url = `https://openapi.programming-hero.com/api/news/${newsId}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -116,8 +117,9 @@ const showDetailNews = async (data) => {
         </div>
         <div class="card-footer border-0 bg-body d-flex justify-content-between">
           <div class="d-flex gap-2">
-          <img src=${author.img
-        } class="img-fluid rounded-circle" alt="..." height="40" width="40"/>
+          <img src=${
+            author.img
+          } class="img-fluid rounded-circle" alt="..." height="40" width="40"/>
           <div>
           <p class="m-0 p-0">${author.name ? author.name : "Not available"}</p>
           <p class="m-0 p-0">${author.published_date}</p>
@@ -141,12 +143,12 @@ const showDetailNews = async (data) => {
     `;
     console.log(data);
 }
-const showTrending = () => {
+const showTrending=()=>{
     const trendingNews = fetchData.filter(singleData => singleData.others_info.is_trending === true);
     const category_name = document.getElementById("category-name").innerText;
     showAllNews(trendingNews, category_name);
 }
-const showTodaysPick = () => {
+const showTodaysPick = () =>{
     const todaysPickNews = fetchData.filter(singleData => singleData.others_info.is_todays_pick === true);
     const category_name = document.getElementById("category-name").innerText;
     showAllNews(todaysPickNews, category_name);
